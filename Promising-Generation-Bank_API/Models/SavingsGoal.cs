@@ -4,9 +4,11 @@
     {
         public int Id { get; set; }
         public int ChildId { get; set; }
-        public string Name { get; set; } = string.Empty; // مثل: دراجة
+        public string Name { get; set; } 
         public decimal TargetAmount { get; set; }
         public decimal CurrentAmount { get; set; } = 0m;
+        public bool IsCompleted { get; set; } = false;
+        public double ProgressPercentage => TargetAmount > 0 ? (double)(CurrentAmount / TargetAmount) * 100 : 0;
 
         // Navigation Property
         public Child Child { get; set; }

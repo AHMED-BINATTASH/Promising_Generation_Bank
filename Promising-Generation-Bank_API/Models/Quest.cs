@@ -8,7 +8,7 @@ namespace Promising_Generation_Bank_API.Models
         public int ChildId { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public int RewardPoints { get; set; }
+        public decimal Amount { get; set; }
         public QuestStatus Status { get; set; } = QuestStatus.Pending;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
