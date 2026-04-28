@@ -17,15 +17,13 @@ namespace Promising_Generation_Bank_API.Controllers
             _goalRepo = goalRepo;
         }
 
-        // [Child View] - الحصول على أهداف الادخار للطفل
-        [HttpGet("Get/{childId}")]
+        [HttpGet("GetChildGoals")]
         public async Task<IActionResult> GetChildGoals(int childId)
         {
             var goals = await _goalRepo.GetGoalsByChildIdAsync(childId);
             return Ok(ApiResponse<IEnumerable<SavingsGoal>>.SuccessResponse(goals, "Savings goals retrieved successfully", ResultCode.Success));
         }
 
-        // [CRUD] - إضافة هدف ادخار جديد (مثلاً: شراء سيكل)
         [HttpPost("Add")]
         public async Task<IActionResult> CreateGoal([FromBody] SavingsGoal goal)
         {
@@ -33,8 +31,7 @@ namespace Promising_Generation_Bank_API.Controllers
             return Ok(ApiResponse<SavingsGoal>.SuccessResponse(newGoal, "Savings goal added to your piggy bank", ResultCode.Created));
         }
 
-        // [Child Action] - إضافة مبلغ للهدف (لتحديث الأنيميشن في الواجهة)
-        [HttpPatch("{id}/add-money")]
+        [HttpPatch("ContributeToGoal")]
         public async Task<IActionResult> ContributeToGoal(int id, [FromBody] decimal amount)
         {
             var goal = await _goalRepo.UpdateProgressAsync(id, amount);

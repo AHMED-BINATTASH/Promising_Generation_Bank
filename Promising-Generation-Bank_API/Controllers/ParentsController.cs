@@ -16,7 +16,6 @@ namespace Promising_Generation_Bank_API.Controllers
             _parentRepo = parentRepo;
         }
 
-        // [GET] الحصول على بيانات الأب (الاسم، والبيانات العامة)
         [HttpGet("GetParent")]
         public async Task<IActionResult> GetParentProfile(int id)
         {

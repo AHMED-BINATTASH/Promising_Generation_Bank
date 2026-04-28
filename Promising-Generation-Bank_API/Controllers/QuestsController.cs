@@ -11,7 +11,7 @@ using Promising_Generation_Bank_API.Models;
 namespace Promising_Generation_Bank_API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/Quests")]
     public class QuestsController : ControllerBase
     {
         private readonly AgentService _agentService;
@@ -24,60 +24,60 @@ namespace Promising_Generation_Bank_API.Controllers
             _context = context;
         }
 
-        // [Parent View] - عرض كل المهام لإدارة الأب
-        [HttpGet("parent/{parentId}")]
+        // Get all Releted Quests to Parent
+        [HttpGet("GetParentQuestsByParentId")]
         public async Task<IActionResult> GetParentQuests(int parentId)
         {
             var quests = await _questRepo.GetQuestsByParentAsync(parentId);
             return Ok(ApiResponse<IEnumerable<Quest>>.SuccessResponse(quests, "Quests retrieved for parent dashboard", ResultCode.Success));
         }
 
-        // [Child View] - عرض المهام النشطة فقط للطفل (Quest Map)
-        [HttpGet("child/{childId}")]
+        // Get all Quests of child by ID 
+        [HttpGet("GetApprovedChildQuestsByChildId")]
         public async Task<IActionResult> GetChildQuests(int childId)
         {
             var quests = await _questRepo.GetActiveQuestsForChildAsync(childId);
             return Ok(ApiResponse<IEnumerable<Quest>>.SuccessResponse(quests, "Available quests for child retrieved", ResultCode.Success));
         }
 
-        // [Parent/Child] - إضافة مهمة جديدة
         [HttpPost("Add")]
-        public async Task<IActionResult> CreateQuest([FromBody] Quest quest)
+        public async Task<IActionResult> AddQuest([FromBody] Quest quest)
         {
             var result = await _questRepo.AddAsync(quest);
             return Ok(ApiResponse<Quest>.SuccessResponse(result, "New quest created successfully", ResultCode.Created));
         }
 
-        // [Child Action] - تحديث حالة المهمة (تفعيل الـ Confetti في الفرونت إند عند النجاح)
-        [HttpPatch("{id}/complete")]
-        public async Task<IActionResult> CompleteQuest(int id)
+        [HttpPatch("UpdateQuestStatusById")]
+        public async Task<IActionResult> ChangeQuestStatus(int id , string status)
         {
-            var updatedQuest = await _questRepo.UpdateStatusAsync(id, "Completed");
+            var updatedQuest = await _questRepo.UpdateStatusAsync(id, status);
             if (updatedQuest == null) return NotFound(ApiResponse<Quest>.FailureResponse("Quest not found", ResultCode.NotFound));
 
-            return Ok(ApiResponse<Quest>.SuccessResponse(updatedQuest, "Quest marked as completed! Ready for confetti!", ResultCode.Success));
+            return Ok(ApiResponse<Quest>.SuccessResponse(updatedQuest, $"Quest marked as {status}! Ready for confetti!", ResultCode.Success));
         }
 
-        [HttpPatch("{id}/Approved")]
-        public async Task<IActionResult> ApprovedQuest(int id)
-        {
-            var updatedQuest = await _questRepo.UpdateStatusAsync(id, "Approved");
-            if (updatedQuest == null) return NotFound(ApiResponse<Quest>.FailureResponse("Quest not found", ResultCode.NotFound));
+    
 
-            return Ok(ApiResponse<Quest>.SuccessResponse(updatedQuest, "Quest marked as completed! Ready for confetti!", ResultCode.Success));
-        }
-
-        // [Parent Action] - حذف مهمة
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteQuest(int id)
         {
             await _questRepo.DeleteAsync(id);
             return Ok(ApiResponse<string>.SuccessResponse(null, "Quest deleted successfully", ResultCode.Success));
         }
 
+        [HttpGet("GetTotalChildBalanceByChildId")]
+        public async Task<IActionResult> GetTotalChildBalance(int childId)
+        {
+            var totalBalance = await _context.Quests
+                .Where(c => c.ChildId == childId && c.Status == QuestStatus.Approved)
+                .SumAsync(c => c.Amount);
+
+            return Ok(ApiResponse<decimal>.SuccessResponse(totalBalance, "Total child balance calculated", ResultCode.Success));
+        }
+
 
         // 1. إجمالي رصيد العائلة
-        [HttpGet("parent/{parentId}/total-balance")]
+        [HttpGet("GetTotalFamilyBalance")]
         public async Task<IActionResult> GetTotalFamilyBalance(int parentId)
         {
             var totalBalance = await _context.Children
@@ -88,7 +88,7 @@ namespace Promising_Generation_Bank_API.Controllers
         }
 
         // 2. ما تم كسبه هذا الأسبوع
-        [HttpGet("parent/{parentId}/earned-this-week-from-quests")]
+        [HttpGet("GetEarnedThisWeekFromQuests")]
         public async Task<IActionResult> GetEarnedThisWeekFromQuests(int parentId)
         {
 
@@ -105,7 +105,7 @@ namespace Promising_Generation_Bank_API.Controllers
         }
 
         // 3. المهام التي تنتظر الموافقة (عدد فقط)
-        [HttpGet("parent/{parentId}/pending-approvals-count")]
+        [HttpGet("GetPendingApprovalsCount")]
         public async Task<IActionResult> GetPendingApprovalsCount(int parentId)
         {
             var count = await _context.Quests
@@ -114,14 +114,13 @@ namespace Promising_Generation_Bank_API.Controllers
             return Ok(ApiResponse<int>.SuccessResponse(count, "Pending approvals count retrieved", ResultCode.Success));
         }
 
+
         // 4. عدد الأطفال النشطين حالياً
-        [HttpGet("parent/{parentId}/active-children-count")]
+        [HttpGet("GetActiveChildrenCount")]
         public async Task<IActionResult> GetActiveChildrenCount(int parentId)
         {
-            var count = await _context.Quests
-                .Where(q => q.ParentId == parentId && q.Status == QuestStatus.Pending)
-                .Select(q => q.ChildId)
-                .Distinct()
+            var count = await _context.Children
+                .Where(q => q.ParentId == parentId)
                 .CountAsync();
 
             return Ok(ApiResponse<int>.SuccessResponse(count, "Active children count retrieved", ResultCode.Success));

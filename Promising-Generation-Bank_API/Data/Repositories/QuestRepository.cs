@@ -59,8 +59,15 @@ namespace Promising_Generation_Bank_API.Data.Repositories
                     throw new ArgumentException($"Invalid status value: {status}");
                 }
 
+
                 // 2. Update the property
                 quest.Status = result;
+
+                if (quest.Status == QuestStatus.Approved)
+                {
+                   var child = _context.Children.Where(c => c.Id == quest.ChildId).First();
+                    child.SavingsBalance += quest.Amount;
+                }
 
                 // 3. Save changes only if the update was valid
                 await _context.SaveChangesAsync();

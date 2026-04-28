@@ -15,6 +15,6 @@ namespace Promising_Generation_Bank_API.Models
 
         // Navigation Property
         [JsonIgnore]
-        public Child Child { get; set; }
+        public Child? Child { get; set; }
     }
 }
