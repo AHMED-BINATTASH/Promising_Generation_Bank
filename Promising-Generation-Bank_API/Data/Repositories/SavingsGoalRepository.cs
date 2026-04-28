@@ -8,18 +8,38 @@
         public class SavingsGoalRepository
         {
             private readonly AppDbContext _context;
+            public SavingsGoalRepository(AppDbContext context) => _context = context;
 
-            public SavingsGoalRepository(AppDbContext context)
+            public async Task<IEnumerable<SavingsGoal>> GetGoalsByChildIdAsync(int childId)
             {
-                _context = context;
+                return await _context.SavingsGoals
+                    .Where(sg => sg.ChildId == childId)
+                    .ToListAsync();
             }
 
-            public async Task<IEnumerable<SavingsGoal>> GetAllAsync() => await _context.SavingsGoals.ToListAsync();
-            public async Task<SavingsGoal?> GetByIdAsync(int id) => await _context.SavingsGoals.FindAsync(id);
-            public async Task AddAsync(SavingsGoal goal) => await _context.SavingsGoals.AddAsync(goal);
-            public void Update(SavingsGoal goal) => _context.SavingsGoals.Update(goal);
-            public void Delete(SavingsGoal goal) => _context.SavingsGoals.Remove(goal);
-            public async Task SaveChangesAsync() => await _context.SaveChangesAsync();
+            public async Task<SavingsGoal> AddAsync(SavingsGoal goal)
+            {
+                _context.SavingsGoals.Add(goal);
+                await _context.SaveChangesAsync();
+                return goal;
+            }
+
+            public async Task<SavingsGoal?> UpdateProgressAsync(int goalId, decimal amountToAdd)
+            {
+                var goal = await _context.SavingsGoals.FindAsync(goalId);
+                if (goal == null) return null;
+
+                goal.CurrentAmount += amountToAdd;
+
+                // التحقق من اكتمال الهدف
+                if (goal.CurrentAmount >= goal.TargetAmount)
+                {
+                    goal.IsCompleted = true;
+                }
+
+                await _context.SaveChangesAsync();
+                return goal;
+            }
         }
     }
 }

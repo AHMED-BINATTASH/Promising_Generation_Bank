@@ -25,15 +25,22 @@ namespace Promising_Generation_Bank_API.Data
                 entity.HasKey(p => p.Id);
                 entity.Property(p => p.Name).IsRequired().HasMaxLength(100);
 
-                // إعدادات الحقول المالية
-                entity.Property(p => p.TotalFamilyBalance).HasPrecision(18, 2);
-                entity.Property(p => p.EarnedThisWeek).HasPrecision(18, 2);
+                //// إعدادات الحقول المالية
+                //entity.Property(p => p.TotalFamilyBalance).HasPrecision(18, 2);
+                //entity.Property(p => p.EarnedThisWeek).HasPrecision(18, 2);
 
                 // Relation: Parent (1) -> (M) Children
                 entity.HasMany(p => p.Children)
                       .WithOne(c => c.Parent)
                       .HasForeignKey(c => c.ParentId)
                       .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasMany(c => c.Quests)
+                 .WithOne(q => q.Parent)
+                 .HasForeignKey(q => q.ParentId)
+                 .OnDelete(DeleteBehavior.NoAction);
+
+
             });
 
             // 2. Configuration for Child Entity
@@ -47,6 +54,9 @@ namespace Promising_Generation_Bank_API.Data
                 entity.Property(c => c.SavingsBalance).HasPrecision(18, 2);
 
                 // Relations
+
+
+
                 entity.HasMany(c => c.Quests)
                       .WithOne(q => q.Child)
                       .HasForeignKey(q => q.ChildId)
@@ -60,7 +70,7 @@ namespace Promising_Generation_Bank_API.Data
                 entity.HasMany(c => c.Transactions)
                       .WithOne(t => t.Child)
                       .HasForeignKey(t => t.ChildId)
-                      .OnDelete(DeleteBehavior.Cascade);
+                      .OnDelete(DeleteBehavior.NoAction);
             });
 
             // 3. Configuration for Quest Entity
@@ -100,6 +110,13 @@ namespace Promising_Generation_Bank_API.Data
                 // إعداد الحقل المالي
                 entity.Property(t => t.CashAmount).HasPrecision(18, 2);
                 entity.Property(t => t.Date).HasDefaultValueSql("GETUTCDATE()");
+
+                modelBuilder.Entity<Transaction>()
+                   .HasOne(t => t.Quest)
+                   .WithMany(q => q.Transactions)
+                   .HasForeignKey(t => t.QuestId)
+                   .IsRequired(false)
+                   .OnDelete(DeleteBehavior.NoAction);
             });
         }
     }

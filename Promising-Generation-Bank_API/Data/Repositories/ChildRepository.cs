@@ -9,27 +9,65 @@
         public class ChildRepository
         {
             private readonly AppDbContext _context;
+            public ChildRepository(AppDbContext context) => _context = context;
 
-            public ChildRepository(AppDbContext context)
+            public async Task<Child> AddAsync(Child child)
             {
-                _context = context;
+                _context.Children.Add(child);
+                await _context.SaveChangesAsync();
+                return child;
             }
 
-            public async Task<IEnumerable<Child>> GetAllAsync() => await _context.Children.ToListAsync();
-            public async Task<Child?> GetByIdAsync(int id) => await _context.Children.FindAsync(id);
-            public async Task AddAsync(Child child) => await _context.Children.AddAsync(child);
-            public void Update(Child child) => _context.Children.Update(child);
-            public void Delete(Child child) => _context.Children.Remove(child);
-            public async Task SaveChangesAsync() => await _context.SaveChangesAsync();
-
-            // دوال مخصصة للمشروع
-            public async Task<Child?> GetChildDashboardDataAsync(int childId)
+            public async Task<IEnumerable<Child>> GetChildrenByParentIdAsync(int parentId)
             {
                 return await _context.Children
-                    .Include(c => c.Quests.Where(q => q.Status != QuestStatus.Approved))
-                    .Include(c => c.SavingsGoals)
-                    .FirstOrDefaultAsync(c => c.Id == childId);
+                    .Where(c => c.ParentId == parentId)
+                    .ToListAsync();
             }
+
+            public async Task<Child?> GetChildDashboardDataAsync(int id)
+            {
+                return await _context.Children
+                    .Include(c => c.Quests)
+                    .Include(c => c.SavingsGoals)
+                    .FirstOrDefaultAsync(c => c.Id == id);
+            }
+
+            public async Task<Child?> UpdateAsync(int id, Child childUpdate)
+            {
+                var existing = await _context.Children.FindAsync(id);
+                if (existing == null) return null;
+
+                existing.Name = childUpdate.Name;
+                existing.Age = childUpdate.Age;
+                existing.AvatarUrl = childUpdate.AvatarUrl;
+
+                await _context.SaveChangesAsync();
+                return existing;
+            }
+
+            public async Task<bool> DeleteAsync(int id)
+            {
+                var child = await _context.Children.FindAsync(id);
+                if (child == null) return false;
+
+                _context.Children.Remove(child);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            //public async Task<Child?> AddXPAsync(int childId, int xpToAdd)
+            //{
+            //    var child = await _context.Children.FindAsync(childId);
+            //    if (child == null) return null;
+
+            //    child.XP += xpToAdd;
+            //    // منطق بسيط لزيادة الـ Level (كل 100 نقطة مستوى)
+            //    child.Level = (child.XP / 100) + 1;
+
+            //    await _context.SaveChangesAsync();
+            //    return child;
+            //}
         }
     }
 }

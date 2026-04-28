@@ -17,11 +17,7 @@ namespace Promising_Generation_Bank_API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    TotalFamilyBalance = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
-                    EarnedThisWeek = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
-                    PendingApprovals = table.Column<int>(type: "int", nullable: false),
-                    ActiveChildren = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,9 +55,11 @@ namespace Promising_Generation_Bank_API.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ChildId = table.Column<int>(type: "int", nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    emoji = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
                 },
@@ -74,6 +72,11 @@ namespace Promising_Generation_Bank_API.Migrations
                         principalTable: "Children",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Quests_Parents_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Parents",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -84,6 +87,7 @@ namespace Promising_Generation_Bank_API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ChildId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TargetAmount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     CurrentAmount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false)
@@ -106,6 +110,7 @@ namespace Promising_Generation_Bank_API.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ChildId = table.Column<int>(type: "int", nullable: false),
+                    QuestId = table.Column<int>(type: "int", nullable: true),
                     ActivityName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     CashAmount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
@@ -117,8 +122,12 @@ namespace Promising_Generation_Bank_API.Migrations
                         name: "FK_Transactions_Children_ChildId",
                         column: x => x.ChildId,
                         principalTable: "Children",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Transactions_Quests_QuestId",
+                        column: x => x.QuestId,
+                        principalTable: "Quests",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -132,6 +141,11 @@ namespace Promising_Generation_Bank_API.Migrations
                 column: "ChildId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Quests_ParentId",
+                table: "Quests",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SavingsGoals_ChildId",
                 table: "SavingsGoals",
                 column: "ChildId");
@@ -140,19 +154,24 @@ namespace Promising_Generation_Bank_API.Migrations
                 name: "IX_Transactions_ChildId",
                 table: "Transactions",
                 column: "ChildId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_QuestId",
+                table: "Transactions",
+                column: "QuestId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Quests");
-
-            migrationBuilder.DropTable(
                 name: "SavingsGoals");
 
             migrationBuilder.DropTable(
                 name: "Transactions");
+
+            migrationBuilder.DropTable(
+                name: "Quests");
 
             migrationBuilder.DropTable(
                 name: "Children");

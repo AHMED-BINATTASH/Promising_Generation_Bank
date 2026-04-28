@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Promising_Generation_Bank_API.Data;
+using Promising_Generation_Bank_API.Data.Repositories;
+using Promising_Generation_Bank_API.Data.Repositories.PromisingGenerationBank.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration["ConnectionString"]));
+
+builder.Services.AddScoped<ParentRepository>();
+builder.Services.AddScoped<ChildRepository>();
+builder.Services.AddScoped<QuestRepository>();
+builder.Services.AddScoped<TransactionRepository>();
+builder.Services.AddScoped<SavingsGoalRepository>();
 
 
 var app = builder.Build();

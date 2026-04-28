@@ -8,26 +8,32 @@
         public class ParentRepository
         {
             private readonly AppDbContext _context;
+            public ParentRepository(AppDbContext context) => _context = context;
 
-            public ParentRepository(AppDbContext context)
-            {
-                _context = context;
-            }
-
-            // CRUD الأساسية
-            public async Task<IEnumerable<Parent>> GetAllAsync() => await _context.Parents.ToListAsync();
-            public async Task<Parent?> GetByIdAsync(int id) => await _context.Parents.FindAsync(id);
-            public async Task AddAsync(Parent parent) => await _context.Parents.AddAsync(parent);
-            public void Update(Parent parent) => _context.Parents.Update(parent);
-            public void Delete(Parent parent) => _context.Parents.Remove(parent);
-            public async Task SaveChangesAsync() => await _context.SaveChangesAsync();
-
-            // دوال مخصصة للمشروع
-            public async Task<Parent?> GetParentWithChildrenAsync(int parentId)
+            public async Task<Parent?> GetByIdAsync(int id)
             {
                 return await _context.Parents
                     .Include(p => p.Children)
-                    .FirstOrDefaultAsync(p => p.Id == parentId);
+                    .FirstOrDefaultAsync(p => p.Id == id);
+            }
+
+            public async Task<Parent> AddAsync(Parent parent)
+            {
+                _context.Parents.Add(parent);
+                await _context.SaveChangesAsync();
+                return parent;
+            }
+
+            public async Task<Parent?> UpdateAsync(int id, Parent parentUpdate)
+            {
+                var existing = await _context.Parents.FindAsync(id);
+                if (existing == null) return null;
+
+                existing.Name = parentUpdate.Name;
+                // أضف أي حقول أخرى تود تحديثها هنا
+
+                await _context.SaveChangesAsync();
+                return existing;
             }
         }
     }

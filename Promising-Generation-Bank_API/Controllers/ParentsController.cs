@@ -10,54 +10,35 @@ namespace Promising_Generation_Bank_API.Controllers
     public class ParentsController : ControllerBase
     {
         private readonly ParentRepository _parentRepo;
-        private readonly ChildRepository _childRepo;
 
-        public ParentsController(ParentRepository parentRepo, ChildRepository childRepo)
+        public ParentsController(ParentRepository parentRepo)
         {
             _parentRepo = parentRepo;
-            _childRepo = childRepo;
         }
 
-        [HttpGet("{id}")]
+        // [GET] الحصول على بيانات الأب (الاسم، والبيانات العامة)
+        [HttpGet("GetParent")]
         public async Task<IActionResult> GetParentProfile(int id)
         {
-            var parent = await _parentRepo.GetParentWithChildrenAsync(id);
-            if (parent == null)
-                return NotFound(ApiResponse<Parent>.FailureResponse("Parent account not found", ResultCode.NotFound));
+            var parent = await _parentRepo.GetByIdAsync(id);
+            if (parent == null) return NotFound(ApiResponse<Parent>.FailureResponse("Parent not found", ResultCode.NotFound));
 
-            return Ok(ApiResponse<Parent>.SuccessResponse(parent, "Parent data retrieved successfully", ResultCode.Found));
+            return Ok(ApiResponse<Parent>.SuccessResponse(parent, "Parent profile retrieved", ResultCode.Found));
         }
 
-        [HttpPost]
+        
+        [HttpPost("Add")]
         public async Task<IActionResult> CreateParent([FromBody] Parent parent)
         {
-            parent.TotalFamilyBalance = 0;
-            parent.EarnedThisWeek = 0;
-
-            await _parentRepo.AddAsync(parent);
-            await _parentRepo.SaveChangesAsync();
-
-            return Ok(ApiResponse<Parent>.SuccessResponse(parent, "Parent account created successfully", ResultCode.Created));
+            var newParent = await _parentRepo.AddAsync(parent);
+            return Ok(ApiResponse<Parent>.SuccessResponse(newParent, "Family account created", ResultCode.Created));
         }
 
-        [HttpPost("{parentId}/children")]
-        public async Task<IActionResult> AddChild(int parentId, [FromBody] Child child)
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateParent(int id, [FromBody] Parent parent)
         {
-            var parent = await _parentRepo.GetByIdAsync(parentId);
-            if (parent == null)
-                return NotFound(ApiResponse<Child>.FailureResponse("Parent account not found", ResultCode.NotFound));
-
-            child.ParentId = parentId;
-            child.SavingsBalance = 0;
-
-            await _childRepo.AddAsync(child);
-
-            parent.ActiveChildren += 1;
-            _parentRepo.Update(parent);
-
-            await _childRepo.SaveChangesAsync();
-
-            return Ok(ApiResponse<Child>.SuccessResponse(child, "Child added successfully", ResultCode.Created));
+            var updated = await _parentRepo.UpdateAsync(id, parent);
+            return Ok(ApiResponse<Parent>.SuccessResponse(updated, "Profile updated successfully", ResultCode.Success));
         }
     }
 }

@@ -68,24 +68,10 @@ namespace Promising_Generation_Bank_API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ActiveChildren")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("EarnedThisWeek")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("PendingApprovals")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalFamilyBalance")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -117,6 +103,9 @@ namespace Promising_Generation_Bank_API.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<int>("ParentId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -126,9 +115,15 @@ namespace Promising_Generation_Bank_API.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("emoji")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ChildId");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Quests");
                 });
@@ -147,6 +142,10 @@ namespace Promising_Generation_Bank_API.Migrations
                     b.Property<decimal>("CurrentAmount")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
@@ -192,9 +191,14 @@ namespace Promising_Generation_Bank_API.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
+                    b.Property<int?>("QuestId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ChildId");
+
+                    b.HasIndex("QuestId");
 
                     b.ToTable("Transactions");
                 });
@@ -218,7 +222,15 @@ namespace Promising_Generation_Bank_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Promising_Generation_Bank_API.Models.Parent", "Parent")
+                        .WithMany("Quests")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("Child");
+
+                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("Promising_Generation_Bank_API.Models.SavingsGoal", b =>
@@ -237,10 +249,17 @@ namespace Promising_Generation_Bank_API.Migrations
                     b.HasOne("Promising_Generation_Bank_API.Models.Child", "Child")
                         .WithMany("Transactions")
                         .HasForeignKey("ChildId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("Promising_Generation_Bank_API.Models.Quest", "Quest")
+                        .WithMany("Transactions")
+                        .HasForeignKey("QuestId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.Navigation("Child");
+
+                    b.Navigation("Quest");
                 });
 
             modelBuilder.Entity("Promising_Generation_Bank_API.Models.Child", b =>
@@ -255,6 +274,13 @@ namespace Promising_Generation_Bank_API.Migrations
             modelBuilder.Entity("Promising_Generation_Bank_API.Models.Parent", b =>
                 {
                     b.Navigation("Children");
+
+                    b.Navigation("Quests");
+                });
+
+            modelBuilder.Entity("Promising_Generation_Bank_API.Models.Quest", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

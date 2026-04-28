@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Promising_Generation_Bank_API.Data;
 using Promising_Generation_Bank_API.Data.Repositories;
 using Promising_Generation_Bank_API.Data.Repositories.PromisingGenerationBank.Repositories;
 using Promising_Generation_Bank_API.Enums;
@@ -12,75 +14,114 @@ namespace Promising_Generation_Bank_API.Controllers
     public class QuestsController : ControllerBase
     {
         private readonly QuestRepository _questRepo;
-        private readonly ChildRepository _childRepo;
-        private readonly TransactionRepository _transactionRepo;
-
-        public QuestsController(QuestRepository questRepo, ChildRepository childRepo, TransactionRepository transactionRepo)
+        private readonly AppDbContext _context;
+        public QuestsController(QuestRepository questRepo, AppDbContext context)
         {
             _questRepo = questRepo;
-            _childRepo = childRepo;
-            _transactionRepo = transactionRepo;
+            _context = context;
         }
 
-        [HttpPost]
+        // [Parent View] - عرض كل المهام لإدارة الأب
+        [HttpGet("parent/{parentId}")]
+        public async Task<IActionResult> GetParentQuests(int parentId)
+        {
+            var quests = await _questRepo.GetQuestsByParentAsync(parentId);
+            return Ok(ApiResponse<IEnumerable<Quest>>.SuccessResponse(quests, "Quests retrieved for parent dashboard", ResultCode.Success));
+        }
+
+        // [Child View] - عرض المهام النشطة فقط للطفل (Quest Map)
+        [HttpGet("child/{childId}")]
+        public async Task<IActionResult> GetChildQuests(int childId)
+        {
+            var quests = await _questRepo.GetActiveQuestsForChildAsync(childId);
+            return Ok(ApiResponse<IEnumerable<Quest>>.SuccessResponse(quests, "Available quests for child retrieved", ResultCode.Success));
+        }
+
+        // [Parent/Child] - إضافة مهمة جديدة
+        [HttpPost("Add")]
         public async Task<IActionResult> CreateQuest([FromBody] Quest quest)
         {
-            quest.Status = QuestStatus.Pending;
-            quest.CreatedAt = DateTime.UtcNow;
-
-            await _questRepo.AddAsync(quest);
-            await _questRepo.SaveChangesAsync();
-
-            return Ok(ApiResponse<Quest>.SuccessResponse(quest, "Quest assigned successfully", ResultCode.Created));
+            var result = await _questRepo.AddAsync(quest);
+            return Ok(ApiResponse<Quest>.SuccessResponse(result, "New quest created successfully", ResultCode.Created));
         }
 
-        [HttpPut("{id}/complete")]
+        // [Child Action] - تحديث حالة المهمة (تفعيل الـ Confetti في الفرونت إند عند النجاح)
+        [HttpPatch("{id}/complete")]
         public async Task<IActionResult> CompleteQuest(int id)
         {
-            var quest = await _questRepo.GetByIdAsync(id);
-            if (quest == null)
-                return NotFound(ApiResponse<object>.FailureResponse("Quest not found", ResultCode.NotFound));
+            var updatedQuest = await _questRepo.UpdateStatusAsync(id, "Completed");
+            if (updatedQuest == null) return NotFound(ApiResponse<Quest>.FailureResponse("Quest not found", ResultCode.NotFound));
 
-            quest.Status = QuestStatus.Completed;
-            _questRepo.Update(quest);
-            await _questRepo.SaveChangesAsync();
-
-            return Ok(ApiResponse<object>.SuccessResponse(null, "Quest sent to parent for approval", ResultCode.Success));
+            return Ok(ApiResponse<Quest>.SuccessResponse(updatedQuest, "Quest marked as completed! Ready for confetti!", ResultCode.Success));
         }
 
-        [HttpPut("{id}/approve")]
-        public async Task<IActionResult> ApproveQuest(int id)
+        [HttpPatch("{id}/Approved")]
+        public async Task<IActionResult> ApprovedQuest(int id)
         {
-            var quest = await _questRepo.GetByIdAsync(id);
-            if (quest == null)
-                return NotFound(ApiResponse<object>.FailureResponse("Quest not found", ResultCode.NotFound));
+            var updatedQuest = await _questRepo.UpdateStatusAsync(id, "Approved");
+            if (updatedQuest == null) return NotFound(ApiResponse<Quest>.FailureResponse("Quest not found", ResultCode.NotFound));
 
-            if (quest.Status != QuestStatus.Completed)
-                return BadRequest(ApiResponse<object>.FailureResponse("Quest is not completed yet or already approved", ResultCode.BadRequest));
+            return Ok(ApiResponse<Quest>.SuccessResponse(updatedQuest, "Quest marked as completed! Ready for confetti!", ResultCode.Success));
+        }
 
-            var child = await _childRepo.GetByIdAsync(quest.ChildId);
-            if (child == null)
-                return NotFound(ApiResponse<object>.FailureResponse("Child not found", ResultCode.NotFound));
+        // [Parent Action] - حذف مهمة
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteQuest(int id)
+        {
+            await _questRepo.DeleteAsync(id);
+            return Ok(ApiResponse<string>.SuccessResponse(null, "Quest deleted successfully", ResultCode.Success));
+        }
 
-            quest.Status = QuestStatus.Approved;
-            _questRepo.Update(quest);
 
-            child.SavingsBalance += quest.Amount;
-            _childRepo.Update(child);
+        // 1. إجمالي رصيد العائلة
+        [HttpGet("parent/{parentId}/total-balance")]
+        public async Task<IActionResult> GetTotalFamilyBalance(int parentId)
+        {
+            var totalBalance = await _context.Children
+                .Where(c => c.ParentId == parentId)
+                .SumAsync(c => c.SavingsBalance);
 
-            var transaction = new Transaction
-            {
-                ChildId = child.Id,
-                ActivityName = $"Quest Completion Reward: {quest.Title}",
-                CashAmount = quest.Amount,
-                Date = DateTime.UtcNow
-            };
-            await _transactionRepo.AddAsync(transaction);
-            await _questRepo.SaveChangesAsync();
+            return Ok(ApiResponse<decimal>.SuccessResponse(totalBalance, "Total family balance calculated", ResultCode.Success));
+        }
 
-            var responseData = new { NewBalance = child.SavingsBalance };
+        // 2. ما تم كسبه هذا الأسبوع
+        [HttpGet("parent/{parentId}/earned-this-week-from-quests")]
+        public async Task<IActionResult> GetEarnedThisWeekFromQuests(int parentId)
+        {
 
-            return Ok(ApiResponse<object>.SuccessResponse(responseData, "Quest approved and amount transferred to the child", ResultCode.Success));
+            var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
+
+
+            var earned = await _context.Quests
+                .Where(q => q.ParentId == parentId
+                         && q.Status == QuestStatus.Approved
+                         && q.CreatedAt >= oneWeekAgo)
+                .SumAsync(q => q.Amount);
+
+            return Ok(ApiResponse<decimal>.SuccessResponse(earned, "Weekly earnings calculated from Quests", ResultCode.Success));
+        }
+
+        // 3. المهام التي تنتظر الموافقة (عدد فقط)
+        [HttpGet("parent/{parentId}/pending-approvals-count")]
+        public async Task<IActionResult> GetPendingApprovalsCount(int parentId)
+        {
+            var count = await _context.Quests
+                .CountAsync(q => q.ParentId == parentId && q.Status == QuestStatus.Completed);
+
+            return Ok(ApiResponse<int>.SuccessResponse(count, "Pending approvals count retrieved", ResultCode.Success));
+        }
+
+        // 4. عدد الأطفال النشطين حالياً
+        [HttpGet("parent/{parentId}/active-children-count")]
+        public async Task<IActionResult> GetActiveChildrenCount(int parentId)
+        {
+            var count = await _context.Quests
+                .Where(q => q.ParentId == parentId && q.Status == QuestStatus.Pending)
+                .Select(q => q.ChildId)
+                .Distinct()
+                .CountAsync();
+
+            return Ok(ApiResponse<int>.SuccessResponse(count, "Active children count retrieved", ResultCode.Success));
         }
     }
 }

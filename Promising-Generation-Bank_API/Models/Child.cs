@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Text.Json.Serialization;
 using System.Transactions;
 
 namespace Promising_Generation_Bank_API.Models
@@ -14,9 +15,13 @@ namespace Promising_Generation_Bank_API.Models
         public decimal SavingsBalance { get; set; } = 0m;
 
         // Navigation Properties
-        public Parent Parent { get; set; }
+        [JsonIgnore]
+        public Parent? Parent { get; set; }
+        [JsonIgnore]
         public ICollection<Quest> Quests { get; set; } = new List<Quest>();
+        [JsonIgnore]
         public ICollection<SavingsGoal> SavingsGoals { get; set; } = new List<SavingsGoal>();
+        [JsonIgnore]
         public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
     }
     

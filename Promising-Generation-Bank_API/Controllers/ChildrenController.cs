@@ -20,6 +20,27 @@ namespace Promising_Generation_Bank_API.Controllers
             _childRepo = childRepo;
             _transactionRepo = transactionRepo;
         }
+        // أضف هذه العمليات إلى الـ Controller الذي بدأته سابقاً
+        [HttpPost("Add")]
+        public async Task<IActionResult> AddChild([FromBody] Child child)
+        {
+            var newChild = await _childRepo.AddAsync(child);
+            return Ok(ApiResponse<Child>.SuccessResponse(newChild, "Child profile created", ResultCode.Created));
+        }
+
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateChild(int id, [FromBody] Child child)
+        {
+            var updatedChild = await _childRepo.UpdateAsync(id, child);
+            return Ok(ApiResponse<Child>.SuccessResponse(updatedChild, "Child profile updated", ResultCode.Success));
+        }
+
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> DeleteChild(int id)
+        {
+            await _childRepo.DeleteAsync(id);
+            return Ok(ApiResponse<string>.SuccessResponse(null, "Child profile removed", ResultCode.Success));
+        }
 
         [HttpGet("{id}/dashboard")]
         public async Task<IActionResult> GetChildDashboard(int id)
