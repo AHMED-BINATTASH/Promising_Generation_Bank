@@ -1,0 +1,364 @@
+[
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.ChildrenController",
+    "Method": "GetChildDashboard",
+    "RelativePath": "api/Children/{id}/dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.ChildrenController",
+    "Method": "GetChildTransactions",
+    "RelativePath": "api/Children/{id}/transactions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.ChildrenController",
+    "Method": "AddChild",
+    "RelativePath": "api/Children/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "child",
+        "Type": "Promising_Generation_Bank_API.Models.Child",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.ChildrenController",
+    "Method": "DeleteChild",
+    "RelativePath": "api/Children/Delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.ChildrenController",
+    "Method": "UpdateChild",
+    "RelativePath": "api/Children/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "child",
+        "Type": "Promising_Generation_Bank_API.Models.Child",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.ParentsController",
+    "Method": "CreateParent",
+    "RelativePath": "api/Parents/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "parent",
+        "Type": "Promising_Generation_Bank_API.Models.Parent",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.ParentsController",
+    "Method": "GetParentProfile",
+    "RelativePath": "api/Parents/GetParent",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.ParentsController",
+    "Method": "UpdateParent",
+    "RelativePath": "api/Parents/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "parent",
+        "Type": "Promising_Generation_Bank_API.Models.Parent",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
+    "Method": "DeleteQuest",
+    "RelativePath": "api/Quests/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
+    "Method": "ApprovedQuest",
+    "RelativePath": "api/Quests/{id}/Approved",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
+    "Method": "CompleteQuest",
+    "RelativePath": "api/Quests/{id}/complete",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
+    "Method": "CreateQuest",
+    "RelativePath": "api/Quests/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "quest",
+        "Type": "Promising_Generation_Bank_API.Models.Quest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
+    "Method": "GetChildQuests",
+    "RelativePath": "api/Quests/child/{childId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "childId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
+    "Method": "GenerateQuests",
+    "RelativePath": "api/Quests/generate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Promising_Generation_Bank_API.Controllers.QuestsController\u002BQuestRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
+    "Method": "GetParentQuests",
+    "RelativePath": "api/Quests/parent/{parentId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "parentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
+    "Method": "GetActiveChildrenCount",
+    "RelativePath": "api/Quests/parent/{parentId}/active-children-count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "parentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
+    "Method": "GetEarnedThisWeekFromQuests",
+    "RelativePath": "api/Quests/parent/{parentId}/earned-this-week-from-quests",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "parentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
+    "Method": "GetPendingApprovalsCount",
+    "RelativePath": "api/Quests/parent/{parentId}/pending-approvals-count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "parentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
+    "Method": "GetTotalFamilyBalance",
+    "RelativePath": "api/Quests/parent/{parentId}/total-balance",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "parentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.SavingsGoalsController",
+    "Method": "ContributeToGoal",
+    "RelativePath": "api/SavingsGoals/{id}/add-money",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "amount",
+        "Type": "System.Decimal",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.SavingsGoalsController",
+    "Method": "CreateGoal",
+    "RelativePath": "api/SavingsGoals/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "goal",
+        "Type": "Promising_Generation_Bank_API.Models.SavingsGoal",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.SavingsGoalsController",
+    "Method": "GetChildGoals",
+    "RelativePath": "api/SavingsGoals/Get/{childId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "childId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

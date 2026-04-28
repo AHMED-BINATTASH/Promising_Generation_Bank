@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "D:\\Down\\Promising-Generation-Bank\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\controllers\\savingsgoalscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\controllers\\savingsgoalscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\controllers\\questscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\controllers\\questscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\agentcomponents\\agent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\agentcomponents\\agent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\controllers\\childrencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,54 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\controllers\\parentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\controllers\\parentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\utility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\utility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\data\\repositories\\parentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\data\\repositories\\parentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\data\\repositories\\transactionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\data\\repositories\\transactionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\models\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\models\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\models\\savingsgoal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\models\\savingsgoal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\models\\quest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\models\\quest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\models\\parent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\models\\parent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\models\\child.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\models\\child.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\data\\repositories\\questrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\data\\repositories\\questrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\data\\repositories\\savingsgoalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\data\\repositories\\savingsgoalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|d:\\down\\promising-generation-bank\\promising-generation-bank_api\\data\\repositories\\childrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E839286-DF1F-8376-D695-D870141B447C}|Promising-Generation-Bank_API\\Promising-Generation-Bank_API.csproj|solutionrelative:promising-generation-bank_api\\data\\repositories\\childrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -79,15 +39,39 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SavingsGoalsController.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Controllers\\SavingsGoalsController.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Controllers\\SavingsGoalsController.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Controllers\\SavingsGoalsController.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Controllers\\SavingsGoalsController.cs",
-              "ViewState": "AgIAAFYAAAAAAAAAAAAgwFwAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:51:55.02Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\appsettings.json",
+              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\appsettings.json",
+              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\appsettings.json*",
+              "RelativeToolTip": "Promising-Generation-Bank_API\\appsettings.json*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-28T06:58:40.147Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Program.cs",
+              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Program.cs",
+              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Program.cs",
+              "RelativeToolTip": "Promising-Generation-Bank_API\\Program.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAABkAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T06:57:31.995Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Agent.cs",
+              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\AgentComponents\\Agent.cs",
+              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\AgentComponents\\Agent.cs",
+              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\AgentComponents\\Agent.cs",
+              "RelativeToolTip": "Promising-Generation-Bank_API\\AgentComponents\\Agent.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAnwDgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T06:46:15.055Z"
             },
             {
               "$type": "Document",
@@ -97,192 +81,34 @@
               "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Controllers\\QuestsController.cs",
               "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Controllers\\QuestsController.cs",
               "RelativeToolTip": "Promising-Generation-Bank_API\\Controllers\\QuestsController.cs",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAkwAgAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAkwKkAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:40:17.748Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ChildrenController.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Controllers\\ChildrenController.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Controllers\\ChildrenController.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Controllers\\ChildrenController.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Controllers\\ChildrenController.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:39:36.379Z",
+              "WhenOpened": "2026-04-28T06:07:42.852Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Utility.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Utility.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Utility.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Utility.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Utility.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAQwDMAAABIAAAAAAAAAA==",
+              "Title": "ChildrenController.cs",
+              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Controllers\\ChildrenController.cs",
+              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Controllers\\ChildrenController.cs",
+              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Controllers\\ChildrenController.cs",
+              "RelativeToolTip": "Promising-Generation-Bank_API\\Controllers\\ChildrenController.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAA7wAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:34:19.852Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T06:05:06.807Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "ParentsController.cs",
               "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Controllers\\ParentsController.cs",
               "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Controllers\\ParentsController.cs",
               "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Controllers\\ParentsController.cs",
               "RelativeToolTip": "Promising-Generation-Bank_API\\Controllers\\ParentsController.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwAoAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAYwCcAAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:29:21.139Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "SavingsGoal.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Models\\SavingsGoal.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Models\\SavingsGoal.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Models\\SavingsGoal.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Models\\SavingsGoal.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAA5wAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:26:08.516Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Quest.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Models\\Quest.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Models\\Quest.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Models\\Quest.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Models\\Quest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:26:05.463Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Parent.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Models\\Parent.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Models\\Parent.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Models\\Parent.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Models\\Parent.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:26:02.801Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Transaction.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Models\\Transaction.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Models\\Transaction.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Models\\Transaction.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Models\\Transaction.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:24:39.331Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Data\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Data\\AppDbContext.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Data\\AppDbContext.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Data\\AppDbContext.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAwwA8AAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:22:35.122Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "TransactionRepository.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Data\\Repositories\\TransactionRepository.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Data\\Repositories\\TransactionRepository.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Data\\Repositories\\TransactionRepository.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Data\\Repositories\\TransactionRepository.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAYwAYAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:21:58.16Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ParentRepository.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Data\\Repositories\\ParentRepository.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Data\\Repositories\\ParentRepository.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Data\\Repositories\\ParentRepository.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Data\\Repositories\\ParentRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:19:23.356Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Child.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Models\\Child.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Models\\Child.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Models\\Child.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Models\\Child.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:25:58.915Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "SavingsGoalRepository.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Data\\Repositories\\SavingsGoalRepository.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Data\\Repositories\\SavingsGoalRepository.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Data\\Repositories\\SavingsGoalRepository.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Data\\Repositories\\SavingsGoalRepository.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAwAkAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:21:24.733Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "QuestRepository.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Data\\Repositories\\QuestRepository.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Data\\Repositories\\QuestRepository.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Data\\Repositories\\QuestRepository.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Data\\Repositories\\QuestRepository.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAYwAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:20:47.652Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "ChildRepository.cs",
-              "DocumentMoniker": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Data\\Repositories\\ChildRepository.cs",
-              "RelativeDocumentMoniker": "Promising-Generation-Bank_API\\Data\\Repositories\\ChildRepository.cs",
-              "ToolTip": "D:\\Down\\Promising-Generation-Bank\\Promising-Generation-Bank_API\\Data\\Repositories\\ChildRepository.cs",
-              "RelativeToolTip": "Promising-Generation-Bank_API\\Data\\Repositories\\ChildRepository.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAwwAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T18:20:04.18Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-28T05:55:08.865Z"
             }
           ]
         }

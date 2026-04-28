@@ -35,9 +35,9 @@ namespace Promising_Generation_Bank_API.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> UpdateParent(int id, [FromBody] Parent parent)
+        public async Task<IActionResult> UpdateParent([FromBody] Parent parent)
         {
-            var updated = await _parentRepo.UpdateAsync(id, parent);
+            var updated = await _parentRepo.UpdateAsync(parent.Id, parent);
             return Ok(ApiResponse<Parent>.SuccessResponse(updated, "Profile updated successfully", ResultCode.Success));
         }
     }

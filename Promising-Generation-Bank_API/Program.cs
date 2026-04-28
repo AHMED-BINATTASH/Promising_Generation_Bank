@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Promising_Generation_Bank_API.AgentComponents;
 using Promising_Generation_Bank_API.Data;
 using Promising_Generation_Bank_API.Data.Repositories;
 using Promising_Generation_Bank_API.Data.Repositories.PromisingGenerationBank.Repositories;
@@ -22,6 +23,7 @@ builder.Services.AddScoped<ChildRepository>();
 builder.Services.AddScoped<QuestRepository>();
 builder.Services.AddScoped<TransactionRepository>();
 builder.Services.AddScoped<SavingsGoalRepository>();
+builder.Services.AddScoped<AgentService>();
 
 
 var app = builder.Build();

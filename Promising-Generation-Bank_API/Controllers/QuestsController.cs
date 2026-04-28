@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Promising_Generation_Bank_API.AgentComponents;
 using Promising_Generation_Bank_API.Data;
 using Promising_Generation_Bank_API.Data.Repositories;
 using Promising_Generation_Bank_API.Data.Repositories.PromisingGenerationBank.Repositories;
@@ -13,10 +14,12 @@ namespace Promising_Generation_Bank_API.Controllers
     [Route("api/[controller]")]
     public class QuestsController : ControllerBase
     {
+        private readonly AgentService _agentService;
         private readonly QuestRepository _questRepo;
         private readonly AppDbContext _context;
-        public QuestsController(QuestRepository questRepo, AppDbContext context)
+        public QuestsController(AgentService agentService, QuestRepository questRepo, AppDbContext context)
         {
+            _agentService = agentService;
             _questRepo = questRepo;
             _context = context;
         }
@@ -122,6 +125,52 @@ namespace Promising_Generation_Bank_API.Controllers
                 .CountAsync();
 
             return Ok(ApiResponse<int>.SuccessResponse(count, "Active children count retrieved", ResultCode.Success));
+        }
+
+        [HttpPost("generate")]
+        public async Task<IActionResult> GenerateQuests([FromBody] QuestRequestDto request)
+        {
+            // 1. Validation using ApiResponse
+            if (string.IsNullOrWhiteSpace(request.Message))
+            {
+                return BadRequest(ApiResponse<object>.FailureResponse(
+                    "Message details are required to generate quests",
+                    ResultCode.BadRequest));
+            }
+
+            // 2. Session Management
+            string sessionId = string.IsNullOrWhiteSpace(request.SessionId)
+                ? Guid.NewGuid().ToString()
+                : request.SessionId;
+
+            try
+            {
+                // 3. Call AI Agent Service
+                string jsonResult = await _agentService.RunAgentAsync(sessionId, request.Message);
+
+                // 4. ✨ The Professional Solution: 
+                // We parse the string into an object so that it's serialized correctly 
+                // inside the ApiResponse wrapper without double escaping.
+                var generatedData = System.Text.Json.JsonSerializer.Deserialize<object>(jsonResult);
+
+                return Ok(ApiResponse<object>.SuccessResponse(
+                    generatedData,
+                    "Quests generated successfully by AI",
+                    ResultCode.Success));
+            }
+            catch (Exception ex)
+            {
+                // 5. Global Error Handling
+                return StatusCode(500, ApiResponse<object>.FailureResponse(
+                    $"An error occurred while generating quests: {ex.Message}",
+                    ResultCode.InternalError));
+            }
+        }
+        // DTO (Data Transfer Object) لاستقبال بيانات الطلب بوضوح
+        public class QuestRequestDto
+        {
+            public string? SessionId { get; set; } // اختياري (يمكن أن يكون ID الأبمن قاعدة البيانات)
+            public string Message { get; set; } = string.Empty; // إلزامي (مثل: "أعطني مهام لطفلي عمره 8 سنوات")
         }
     }
 }
