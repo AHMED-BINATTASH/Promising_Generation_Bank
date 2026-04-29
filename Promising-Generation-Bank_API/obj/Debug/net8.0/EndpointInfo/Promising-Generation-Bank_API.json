@@ -157,6 +157,50 @@
         }
       }
     },
+    "/api/Children/GetActiveChildrenCount": {
+      "get": {
+        "tags": [
+          "Children"
+        ],
+        "parameters": [
+          {
+            "name": "parentId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Children/GetTotalChildBalanceByChildId": {
+      "get": {
+        "tags": [
+          "Children"
+        ],
+        "parameters": [
+          {
+            "name": "childId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Parents/GetParent": {
       "get": {
         "tags": [
@@ -338,28 +382,6 @@
         }
       }
     },
-    "/api/Quests/GetTotalChildBalanceByChildId": {
-      "get": {
-        "tags": [
-          "Quests"
-        ],
-        "parameters": [
-          {
-            "name": "childId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Quests/GetTotalFamilyBalance": {
       "get": {
         "tags": [
@@ -405,28 +427,6 @@
       }
     },
     "/api/Quests/GetPendingApprovalsCount": {
-      "get": {
-        "tags": [
-          "Quests"
-        ],
-        "parameters": [
-          {
-            "name": "parentId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Quests/GetActiveChildrenCount": {
       "get": {
         "tags": [
           "Quests"

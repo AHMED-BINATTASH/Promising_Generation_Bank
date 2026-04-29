@@ -52,15 +52,6 @@ namespace Promising_Generation_Bank_API.Controllers
             await _questRepo.DeleteAsync(id);
             return Ok(ApiResponse<string>.SuccessResponse(null, "Quest deleted successfully", ResultCode.Success));
         }
-        [HttpGet("GetTotalChildBalanceByChildId")]
-        public async Task<IActionResult> GetTotalChildBalance(int childId)
-        {
-            var totalBalance = await _context.Children
-                .Where(c => c.Id == childId)  
-                .SumAsync(c => c.SavingsBalance);
-
-            return Ok(ApiResponse<decimal>.SuccessResponse(totalBalance, "Total child balance calculated", ResultCode.Success));
-        }
 
         // 1. إجمالي رصيد العائلة
         [HttpGet("GetTotalFamilyBalance")]
@@ -98,17 +89,6 @@ namespace Promising_Generation_Bank_API.Controllers
                 .CountAsync(q => q.ParentId == parentId && q.Status == QuestStatus.Completed);
 
             return Ok(ApiResponse<int>.SuccessResponse(count, "Pending approvals count retrieved", ResultCode.Success));
-        }
-
-        // 4. عدد الأطفال النشطين حالياً
-        [HttpGet("GetActiveChildrenCount")]
-        public async Task<IActionResult> GetActiveChildrenCount(int parentId)
-        {
-            var count = await _context.Children
-                .Where(q => q.ParentId == parentId)
-                .CountAsync();
-
-            return Ok(ApiResponse<int>.SuccessResponse(count, "Active children count retrieved", ResultCode.Success));
         }
 
         [HttpPut("{id}/Complete")]

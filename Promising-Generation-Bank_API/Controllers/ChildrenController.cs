@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Promising_Generation_Bank_API.Data;
 using Promising_Generation_Bank_API.Data.Repositories;
 using Promising_Generation_Bank_API.Data.Repositories.PromisingGenerationBank.Repositories;
 using Promising_Generation_Bank_API.Models;
@@ -11,11 +13,13 @@ namespace Promising_Generation_Bank_API.Controllers
     {
         private readonly ChildRepository _childRepo;
         private readonly TransactionRepository _transactionRepo;
+        private readonly AppDbContext _context;
 
-        public ChildrenController(ChildRepository childRepo, TransactionRepository transactionRepo)
+        public ChildrenController(AppDbContext context,ChildRepository childRepo, TransactionRepository transactionRepo)
         {
             _childRepo = childRepo;
             _transactionRepo = transactionRepo;
+            _context = context;
         }
 
         [HttpPost("Add")]
@@ -66,6 +70,27 @@ namespace Promising_Generation_Bank_API.Controllers
                 return NotFound(ApiResponse<Child>.FailureResponse("No children found in the database", ResultCode.NotFound));
 
             return Ok(ApiResponse<Child>.SuccessResponse(richestChild, "Richest child retrieved successfully", ResultCode.Found));
+        }
+
+        // 4. عدد الأطفال النشطين حالياً
+        [HttpGet("GetActiveChildrenCount")]
+        public async Task<IActionResult> GetActiveChildrenCount(int parentId)
+        {
+            var count = await _context.Children
+                .Where(q => q.ParentId == parentId)
+                .CountAsync();
+
+            return Ok(ApiResponse<int>.SuccessResponse(count, "Active children count retrieved", ResultCode.Success));
+        }
+
+        [HttpGet("GetTotalChildBalanceByChildId")]
+        public async Task<IActionResult> GetTotalChildBalance(int childId)
+        {
+            var totalBalance = await _context.Children
+                .Where(c => c.Id == childId)
+                .SumAsync(c => c.SavingsBalance);
+
+            return Ok(ApiResponse<decimal>.SuccessResponse(totalBalance, "Total child balance calculated", ResultCode.Success));
         }
     }
 }

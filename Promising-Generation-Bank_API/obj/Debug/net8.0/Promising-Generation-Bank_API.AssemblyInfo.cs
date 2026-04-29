@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Promising-Generation-Bank_API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c63e2a077155a985e8a5b6f6d4cbcb0fba355bb5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ccad3a1b88d5d9eee34140745096a664aeb0557")]
 [assembly: System.Reflection.AssemblyProductAttribute("Promising-Generation-Bank_API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Promising-Generation-Bank_API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

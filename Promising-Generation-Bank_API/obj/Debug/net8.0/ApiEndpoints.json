@@ -65,6 +65,38 @@
   },
   {
     "ContainingType": "Promising_Generation_Bank_API.Controllers.ChildrenController",
+    "Method": "GetActiveChildrenCount",
+    "RelativePath": "api/Children/GetActiveChildrenCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "parentId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.ChildrenController",
+    "Method": "GetTotalChildBalance",
+    "RelativePath": "api/Children/GetTotalChildBalanceByChildId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "childId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Promising_Generation_Bank_API.Controllers.ChildrenController",
     "Method": "GetRichestChild",
     "RelativePath": "api/Children/Richest",
     "HttpMethod": "GET",
@@ -224,22 +256,6 @@
   },
   {
     "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
-    "Method": "GetActiveChildrenCount",
-    "RelativePath": "api/Quests/GetActiveChildrenCount",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "parentId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
     "Method": "GetChildQuests",
     "RelativePath": "api/Quests/GetApprovedChildQuestsByChildId",
     "HttpMethod": "GET",
@@ -296,22 +312,6 @@
     "Parameters": [
       {
         "Name": "parentId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Promising_Generation_Bank_API.Controllers.QuestsController",
-    "Method": "GetTotalChildBalance",
-    "RelativePath": "api/Quests/GetTotalChildBalanceByChildId",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "childId",
         "Type": "System.Int32",
         "IsRequired": false
       }
