@@ -7,9 +7,9 @@ namespace Promising_Generation_Bank_API.Models
     {
         public int Id { get; set; }
         public int ChildId { get; set; }
-        public int ? QuestId { get; set; }
+        public int? QuestId { get; set; }
         public string ActivityName { get; set; }
-        public decimal CashAmount { get; set; } 
+        public decimal CashAmount { get; set; }
         public DateTime Date { get; set; } = DateTime.UtcNow;
 
         // Navigation Property

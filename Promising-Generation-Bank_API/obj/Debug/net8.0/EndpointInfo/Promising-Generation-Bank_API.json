@@ -99,7 +99,7 @@
         }
       }
     },
-    "/api/Children/{id}/dashboard": {
+    "/api/Children/{id}/Get": {
       "get": {
         "tags": [
           "Children"
@@ -137,6 +137,18 @@
               "format": "int32"
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Children/Richest": {
+      "get": {
+        "tags": [
+          "Children"
         ],
         "responses": {
           "200": {
@@ -229,7 +241,7 @@
         }
       }
     },
-    "/api/Quests/parent/{parentId}": {
+    "/api/Quests/GetParentQuestsByParentId": {
       "get": {
         "tags": [
           "Quests"
@@ -237,8 +249,7 @@
         "parameters": [
           {
             "name": "parentId",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -252,7 +263,7 @@
         }
       }
     },
-    "/api/Quests/child/{childId}": {
+    "/api/Quests/GetApprovedChildQuestsByChildId": {
       "get": {
         "tags": [
           "Quests"
@@ -260,8 +271,7 @@
         "parameters": [
           {
             "name": "childId",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -306,53 +316,7 @@
         }
       }
     },
-    "/api/Quests/{id}/complete": {
-      "patch": {
-        "tags": [
-          "Quests"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Quests/{id}/Approved": {
-      "patch": {
-        "tags": [
-          "Quests"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Quests/{id}": {
+    "/api/Quests/Delete": {
       "delete": {
         "tags": [
           "Quests"
@@ -360,6 +324,138 @@
         "parameters": [
           {
             "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Quests/GetTotalChildBalanceByChildId": {
+      "get": {
+        "tags": [
+          "Quests"
+        ],
+        "parameters": [
+          {
+            "name": "childId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Quests/GetTotalFamilyBalance": {
+      "get": {
+        "tags": [
+          "Quests"
+        ],
+        "parameters": [
+          {
+            "name": "parentId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Quests/GetEarnedThisWeekFromQuests": {
+      "get": {
+        "tags": [
+          "Quests"
+        ],
+        "parameters": [
+          {
+            "name": "parentId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Quests/GetPendingApprovalsCount": {
+      "get": {
+        "tags": [
+          "Quests"
+        ],
+        "parameters": [
+          {
+            "name": "parentId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Quests/GetActiveChildrenCount": {
+      "get": {
+        "tags": [
+          "Quests"
+        ],
+        "parameters": [
+          {
+            "name": "parentId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Quests/{id}/Complete": {
+      "put": {
+        "tags": [
+          "Quests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -375,83 +471,14 @@
         }
       }
     },
-    "/api/Quests/parent/{parentId}/total-balance": {
-      "get": {
+    "/api/Quests/{id}/Approve": {
+      "put": {
         "tags": [
           "Quests"
         ],
         "parameters": [
           {
-            "name": "parentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Quests/parent/{parentId}/earned-this-week-from-quests": {
-      "get": {
-        "tags": [
-          "Quests"
-        ],
-        "parameters": [
-          {
-            "name": "parentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Quests/parent/{parentId}/pending-approvals-count": {
-      "get": {
-        "tags": [
-          "Quests"
-        ],
-        "parameters": [
-          {
-            "name": "parentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Quests/parent/{parentId}/active-children-count": {
-      "get": {
-        "tags": [
-          "Quests"
-        ],
-        "parameters": [
-          {
-            "name": "parentId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -498,7 +525,7 @@
         }
       }
     },
-    "/api/SavingsGoals/Get/{childId}": {
+    "/api/SavingsGoals/GetChildGoals": {
       "get": {
         "tags": [
           "SavingsGoals"
@@ -506,8 +533,7 @@
         "parameters": [
           {
             "name": "childId",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -552,7 +578,7 @@
         }
       }
     },
-    "/api/SavingsGoals/{id}/add-money": {
+    "/api/SavingsGoals/ContributeToGoal": {
       "patch": {
         "tags": [
           "SavingsGoals"
@@ -560,8 +586,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -590,6 +615,18 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Transactions/Achievements": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
         "responses": {
           "200": {
             "description": "OK"

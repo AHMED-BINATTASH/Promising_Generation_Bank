@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Promising_Generation_Bank_API.Data.Repositories;
 using Promising_Generation_Bank_API.Data.Repositories.PromisingGenerationBank.Repositories;
-using Promising_Generation_Bank_API.FinGuardAI.API.Utilities;
 using Promising_Generation_Bank_API.Models;
 
 namespace Promising_Generation_Bank_API.Controllers

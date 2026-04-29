@@ -8,9 +8,9 @@ namespace Promising_Generation_Bank_API.Models
     {
         public int Id { get; set; }
         public int ParentId { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
         public int Age { get; set; }
-        public int Level { get; set; }
+        public int Level { get; set; } = 1;
         public string AvatarUrl { get; set; } = string.Empty;
         public decimal SavingsBalance { get; set; } = 0m;
 
@@ -24,5 +24,5 @@ namespace Promising_Generation_Bank_API.Models
         [JsonIgnore]
         public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
     }
-    
+
 }

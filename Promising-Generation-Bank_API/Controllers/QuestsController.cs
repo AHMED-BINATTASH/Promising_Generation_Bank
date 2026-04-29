@@ -3,9 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Promising_Generation_Bank_API.AgentComponents;
 using Promising_Generation_Bank_API.Data;
 using Promising_Generation_Bank_API.Data.Repositories;
-using Promising_Generation_Bank_API.Data.Repositories.PromisingGenerationBank.Repositories;
+using Promising_Generation_Bank_API.DTOs;
 using Promising_Generation_Bank_API.Enums;
-using Promising_Generation_Bank_API.FinGuardAI.API.Utilities;
 using Promising_Generation_Bank_API.Models;
 
 namespace Promising_Generation_Bank_API.Controllers
@@ -47,34 +46,21 @@ namespace Promising_Generation_Bank_API.Controllers
             return Ok(ApiResponse<Quest>.SuccessResponse(result, "New quest created successfully", ResultCode.Created));
         }
 
-        [HttpPatch("UpdateQuestStatusById")]
-        public async Task<IActionResult> ChangeQuestStatus(int id , string status)
-        {
-            var updatedQuest = await _questRepo.UpdateStatusAsync(id, status);
-            if (updatedQuest == null) return NotFound(ApiResponse<Quest>.FailureResponse("Quest not found", ResultCode.NotFound));
-
-            return Ok(ApiResponse<Quest>.SuccessResponse(updatedQuest, $"Quest marked as {status}! Ready for confetti!", ResultCode.Success));
-        }
-
-    
-
         [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteQuest(int id)
         {
             await _questRepo.DeleteAsync(id);
             return Ok(ApiResponse<string>.SuccessResponse(null, "Quest deleted successfully", ResultCode.Success));
         }
-
         [HttpGet("GetTotalChildBalanceByChildId")]
         public async Task<IActionResult> GetTotalChildBalance(int childId)
         {
-            var totalBalance = await _context.Quests
-                .Where(c => c.ChildId == childId && c.Status == QuestStatus.Approved)
-                .SumAsync(c => c.Amount);
+            var totalBalance = await _context.Children
+                .Where(c => c.Id == childId)  
+                .SumAsync(c => c.SavingsBalance);
 
             return Ok(ApiResponse<decimal>.SuccessResponse(totalBalance, "Total child balance calculated", ResultCode.Success));
         }
-
 
         // 1. إجمالي رصيد العائلة
         [HttpGet("GetTotalFamilyBalance")]
@@ -114,7 +100,6 @@ namespace Promising_Generation_Bank_API.Controllers
             return Ok(ApiResponse<int>.SuccessResponse(count, "Pending approvals count retrieved", ResultCode.Success));
         }
 
-
         // 4. عدد الأطفال النشطين حالياً
         [HttpGet("GetActiveChildrenCount")]
         public async Task<IActionResult> GetActiveChildrenCount(int parentId)
@@ -124,6 +109,32 @@ namespace Promising_Generation_Bank_API.Controllers
                 .CountAsync();
 
             return Ok(ApiResponse<int>.SuccessResponse(count, "Active children count retrieved", ResultCode.Success));
+        }
+
+        [HttpPut("{id}/Complete")]
+        public async Task<IActionResult> CompleteQuest(int id)
+        {
+            bool isCompleted = await _questRepo.MakeQuestCompletedAsync(id);
+
+            if (!isCompleted)
+            {
+                return NotFound(ApiResponse<bool>.FailureResponse("Quest not found or could not be completed", ResultCode.NotFound));
+            }
+
+            return Ok(ApiResponse<bool>.SuccessResponse(true, "Quest completed successfully and transaction recorded", ResultCode.Success));
+        }
+
+        [HttpPut("{id}/Approve")]
+        public async Task<IActionResult> ApproveQuest(int id)
+        {
+            bool isApproved = await _questRepo.MakeQuestApprovedAsync(id);
+
+            if (!isApproved)
+            {
+                return NotFound(ApiResponse<bool>.FailureResponse("Quest not found or could not be approved", ResultCode.NotFound));
+            }
+
+            return Ok(ApiResponse<bool>.SuccessResponse(true, "Quest approved and child balance updated successfully", ResultCode.Success));
         }
 
         [HttpPost("generate")]
@@ -165,11 +176,6 @@ namespace Promising_Generation_Bank_API.Controllers
                     ResultCode.InternalError));
             }
         }
-        // DTO (Data Transfer Object) لاستقبال بيانات الطلب بوضوح
-        public class QuestRequestDto
-        {
-            public string? SessionId { get; set; } // اختياري (يمكن أن يكون ID الأبمن قاعدة البيانات)
-            public string Message { get; set; } = string.Empty; // إلزامي (مثل: "أعطني مهام لطفلي عمره 8 سنوات")
-        }
+
     }
 }

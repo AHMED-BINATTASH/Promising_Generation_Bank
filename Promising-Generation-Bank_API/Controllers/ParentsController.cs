@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Promising_Generation_Bank_API.Data.Repositories.PromisingGenerationBank.Repositories;
 using Promising_Generation_Bank_API.Models;
-using Promising_Generation_Bank_API.FinGuardAI.API.Utilities;
 
 namespace Promising_Generation_Bank_API.Controllers
 {
@@ -25,7 +24,6 @@ namespace Promising_Generation_Bank_API.Controllers
             return Ok(ApiResponse<Parent>.SuccessResponse(parent, "Parent profile retrieved", ResultCode.Found));
         }
 
-        
         [HttpPost("Add")]
         public async Task<IActionResult> CreateParent([FromBody] Parent parent)
         {

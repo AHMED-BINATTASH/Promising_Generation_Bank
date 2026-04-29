@@ -1,95 +1,115 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Promising_Generation_Bank_API.Enums;
 using Promising_Generation_Bank_API.Models;
 
 namespace Promising_Generation_Bank_API.Data.Repositories
 {
-    using Microsoft.EntityFrameworkCore;
-    using Promising_Generation_Bank_API.Enums;
-    using Promising_Generation_Bank_API.Models;
-
-    namespace PromisingGenerationBank.Repositories
+    public class QuestRepository
     {
-      
-        public class QuestRepository
+        private readonly AppDbContext _context;
+
+        public QuestRepository(AppDbContext context)
         {
-            private readonly AppDbContext _context;
+            _context = context;
+        }
 
-            public QuestRepository(AppDbContext context)
+        public async Task<IEnumerable<Quest>> GetQuestsByParentAsync(int parentId)
+        {
+            return await _context.Quests
+                .Where(q => q.ParentId == parentId)
+                .OrderByDescending(q => q.CreatedAt)
+                .ToListAsync();
+        }
+        public async Task<IEnumerable<Quest>> GetActiveQuestsForChildAsync(int childId)
+        {
+            // نعرض للطفل المهام التي حالتها ليست "Approved" (أي Pending أو Completed)
+            return await _context.Quests
+                .Where(q => q.ChildId == childId && q.Status != QuestStatus.Approved)
+                .ToListAsync();
+        }
+        public async Task<Quest> AddAsync(Quest quest)
+        {
+            _context.Quests.Add(quest);
+            await _context.SaveChangesAsync();
+            return quest;
+        }
+        public async Task<bool> MakeQuestApprovedAsync(int id)
+        {
+            // 1. جلب المهمة مع بيانات الطفل المرتبطة بها لتحديث رصيده لاحقاً
+            var quest = await _context.Quests
+                                      .Include(q => q.Child)
+                                      .FirstOrDefaultAsync(q => q.Id == id);
+
+            if (quest == null) return false;
+
+            // إجراء حماية: التأكد أن المهمة لم تتم الموافقة عليها مسبقاً لمنع مضاعفة الرصيد
+            if (quest.Status == QuestStatus.Approved)
             {
-                _context = context;
+                return false;
             }
 
-            // 1. جلب كل مهام العائلة (لواجهة الأب)
-            public async Task<IEnumerable<Quest>> GetQuestsByParentAsync(int parentId)
+            // 2. تحديث حالة المهمة إلى "موافق عليها"
+            quest.Status = QuestStatus.Approved;
+
+            // 3. إضافة مبلغ المهمة إلى رصيد مدخرات الطفل
+            if (quest.Child != null)
             {
-                return await _context.Quests
-                    .Where(q => q.ParentId == parentId)
-                    .OrderByDescending(q => q.CreatedAt)
-                    .ToListAsync();
+                quest.Child.SavingsBalance += quest.Amount;
             }
 
-            // 2. جلب المهام المتاحة للطفل (التي لم يتم الموافقة عليها بعد)
-            public async Task<IEnumerable<Quest>> GetActiveQuestsForChildAsync(int childId)
+            // 4. حفظ التغييرات في قاعدة البيانات (سيتم حفظ حالة المهمة ورصيد الطفل معاً)
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+        public async Task<bool> MakeQuestCompletedAsync(int questId)
+        {
+            // 1. جلب المهمة مع بيانات الطفل المرتبطة بها (للحصول على اسمه)
+            var quest = await _context.Quests
+                                      .Include(q => q.Child)
+                                      .FirstOrDefaultAsync(q => q.Id == questId);
+
+            if (quest == null) return false;
+
+            // إجراء حماية: التأكد أن المهمة لم تكتمل مسبقاً
+            if (quest.Status == QuestStatus.Completed)
             {
-                // نعرض للطفل المهام التي حالتها ليست "Approved" (أي Pending أو Completed)
-                return await _context.Quests
-                    .Where(q => q.ChildId == childId && q.Status != QuestStatus.Approved)
-                    .ToListAsync();
+                return false; // أو يمكنك رمي Exception حسب قواعد العمل لديك
             }
 
-            // 3. إضافة مهمة جديدة
-            public async Task<Quest> AddAsync(Quest quest)
+            // 2. تحديث حالة المهمة إلى مكتملة
+            quest.Status = QuestStatus.Completed;
+
+            // 3. إنشاء سجل الحركة (Transaction) بالمعلومات المطلوبة
+            var transaction = new Transaction
             {
-                _context.Quests.Add(quest);
-                await _context.SaveChangesAsync();
-                return quest;
-            }
+                ChildId = quest.ChildId,
+                QuestId = quest.Id,
+                ActivityName = quest.Title,
+                CashAmount = quest.Amount,
+                Date = DateTime.UtcNow
+            };
 
-            // 4. تحديث حالة المهمة (مثل من Pending إلى Completed)
-            public async Task<Quest?> UpdateStatusAsync(int id, string status)
-            {
-                var quest = await _context.Quests.FindAsync(id);
-                if (quest == null) return null;
+            // إضافة السجل الجديد إلى سياق قاعدة البيانات
+            await _context.Transactions.AddAsync(transaction);
 
-                // 1. Validate the Enum input properly
-                if (!Enum.TryParse<QuestStatus>(status, true, out var result))
-                {
-                    // Option A: Throw an exception (if your controller handles them)
-                    // Option B: Return a specific indicator that the input was bad
-                    throw new ArgumentException($"Invalid status value: {status}");
-                }
+            // 4. حفظ التغييرات (EF Core سيقوم بتحديث الـ Quest وإضافة الـ Transaction في عملية واحدة)
+            await _context.SaveChangesAsync();
 
+            return true;
+        }
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var quest = await _context.Quests.FindAsync(id);
+            if (quest == null) return false;
 
-                // 2. Update the property
-                quest.Status = result;
-
-                if (quest.Status == QuestStatus.Approved)
-                {
-                   var child = _context.Children.Where(c => c.Id == quest.ChildId).First();
-                    child.SavingsBalance += quest.Amount;
-                }
-
-                // 3. Save changes only if the update was valid
-                await _context.SaveChangesAsync();
-
-                return quest;
-            }
-            // 5. حذف مهمة
-            public async Task<bool> DeleteAsync(int id)
-            {
-                var quest = await _context.Quests.FindAsync(id);
-                if (quest == null) return false;
-
-                _context.Quests.Remove(quest);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-
-            // دالة إضافية مفيدة لـ "الموافقة النهائية"
-            public async Task<Quest?> GetByIdAsync(int id)
-            {
-                return await _context.Quests.FindAsync(id);
-            }
+            _context.Quests.Remove(quest);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        public async Task<Quest?> GetByIdAsync(int id)
+        {
+            return await _context.Quests.FindAsync(id);
         }
     }
 }

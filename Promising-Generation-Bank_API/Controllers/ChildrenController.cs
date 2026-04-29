@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Promising_Generation_Bank_API.Data.Repositories;
 using Promising_Generation_Bank_API.Data.Repositories.PromisingGenerationBank.Repositories;
-using Promising_Generation_Bank_API.FinGuardAI.API.Utilities;
 using Promising_Generation_Bank_API.Models;
 
 namespace Promising_Generation_Bank_API.Controllers
 {
-
-
     [ApiController]
     [Route("api/[controller]")]
     public class ChildrenController : ControllerBase
@@ -58,6 +55,17 @@ namespace Promising_Generation_Bank_API.Controllers
             var transactions = await _transactionRepo.GetRecentTransactionsForChildAsync(id);
 
             return Ok(ApiResponse<IEnumerable<Transaction>>.SuccessResponse(transactions, "Financial record retrieved successfully", ResultCode.Success));
+        }
+
+        [HttpGet("Richest")]
+        public async Task<IActionResult> GetRichestChild()
+        {
+            var richestChild = await _childRepo.GetRichestChildAsync();
+
+            if (richestChild == null)
+                return NotFound(ApiResponse<Child>.FailureResponse("No children found in the database", ResultCode.NotFound));
+
+            return Ok(ApiResponse<Child>.SuccessResponse(richestChild, "Richest child retrieved successfully", ResultCode.Found));
         }
     }
 }

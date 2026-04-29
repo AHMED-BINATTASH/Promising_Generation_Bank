@@ -2,8 +2,8 @@
 {
     public enum QuestStatus
     {
-        Pending,    // قيد الانتظار/التنفيذ
-        Completed,  // مكتملة بانتظار موافقة الأب
-        Approved    // تمت الموافقة وتم تحويل النقاط
+        Pending,  
+        Completed,
+        Approved  
     }
 }
