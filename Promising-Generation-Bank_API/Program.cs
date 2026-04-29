@@ -28,15 +28,21 @@ builder.Services.AddScoped<AgentService>();
 
 var app = builder.Build();
 
+app.UseCors(options =>
+{
+    options.AllowAnyOrigin()   // يسمح بأي موقع (Frontend) بالاتصال
+           .AllowAnyMethod()   // يسمح بجميع الأفعال (GET, POST, PUT, DELETE)
+           .AllowAnyHeader();  // يسمح بجميع العناوين (Headers)
+});
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || 1 == 1)
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseAuthorization();
 
 app.MapControllers();
