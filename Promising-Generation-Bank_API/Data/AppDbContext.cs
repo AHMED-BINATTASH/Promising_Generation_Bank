@@ -14,6 +14,7 @@ namespace Promising_Generation_Bank_API.Data
         public DbSet<Quest> Quests { get; set; }
         public DbSet<SavingsGoal> SavingsGoals { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<SavingsTransaction> SavingsTransactions{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -117,6 +118,35 @@ namespace Promising_Generation_Bank_API.Data
                    .HasForeignKey(t => t.QuestId)
                    .IsRequired(false)
                    .OnDelete(DeleteBehavior.NoAction);
+            });
+
+
+
+            modelBuilder.Entity<SavingsTransaction>(entity =>
+            {
+                entity.ToTable("SavingsTransactions");
+
+
+                entity.HasKey(t => t.Id);
+
+
+                entity.Property(t => t.Amount)
+                    .HasPrecision(18, 2)
+                    .IsRequired();
+
+                entity.Property(t => t.TransactionDate)
+                    .IsRequired()
+                    .HasDefaultValueSql("GETDATE()");
+
+                entity.Property(t => t.Notes)
+                    .HasMaxLength(500);
+
+                entity.HasOne(t => t.SavingsGoal)
+                  .WithMany(g => g.Transactions) // هنا نحدد اسم القائمة الموجودة في الهدف
+                  .HasForeignKey(t => t.SavingsGoalId);
+
+              
+
             });
         }
     }

@@ -37,6 +37,26 @@
                 await _context.SaveChangesAsync();
                 return goal;
             }
+    
+            public async Task<IEnumerable<object>?> GetCompletedGoalsAsync(int parentid)
+            {
+                var completedSavings = await _context.SavingsGoals
+                                          .Where(s => s.IsCompleted && s.Child.ParentId == parentid)
+                                          .Select(s => new
+                                          {
+                                           
+                                              ChildName = s.Child.Name,
+                                              GoalName = s.Name,
+                                              s.TargetAmount
+                                          })
+                                          .ToListAsync();
+
+                if (completedSavings == null || !completedSavings.Any())
+                    return null;
+
+                return completedSavings;
+            }
+
         }
     }
 }

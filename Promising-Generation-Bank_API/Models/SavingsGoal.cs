@@ -16,5 +16,7 @@ namespace Promising_Generation_Bank_API.Models
         // Navigation Property
         [JsonIgnore]
         public Child? Child { get; set; }
+        [JsonIgnore]
+        public ICollection<SavingsTransaction> Transactions { get; set; } = new List<SavingsTransaction>();
     }
 }
