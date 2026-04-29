@@ -92,6 +92,16 @@ namespace Promising_Generation_Bank_API.Controllers
 
             return Ok(ApiResponse<decimal>.SuccessResponse(totalBalance, "Total child balance calculated", ResultCode.Success));
         }
+
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAllChildren(int parentId)
+        {
+            var children = await _context.Children
+                .Where(c => c.ParentId == parentId)
+                .ToListAsync();
+
+            return Ok(ApiResponse<List<Child>>.SuccessResponse(children, "Children retrieved successfully", ResultCode.Success));
+        }
     }
 }
 
