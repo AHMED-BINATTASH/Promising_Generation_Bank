@@ -1,4 +1,4 @@
-﻿namespace Promising_Generation_Bank_API
+﻿namespace Promising_Generation_Bank_API.Models
 {
     public class ApiResponse<T>
     {

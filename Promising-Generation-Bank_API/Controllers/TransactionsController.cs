@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Promising_Generation_Bank_API.Data.Repositories;
 using Promising_Generation_Bank_API.DTOs;
+using Promising_Generation_Bank_API.Models;
 
 namespace Promising_Generation_Bank_API.Controllers
 {

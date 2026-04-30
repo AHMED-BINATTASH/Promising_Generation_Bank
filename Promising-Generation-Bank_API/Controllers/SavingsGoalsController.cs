@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Promising_Generation_Bank_API.Data;
 using Promising_Generation_Bank_API.Data.Repositories.PromisingGenerationBank.Repositories;
 using Promising_Generation_Bank_API.Models;
@@ -62,10 +63,10 @@ namespace Promising_Generation_Bank_API.Controllers
             try
             {
                 // 1. جلب الهدف من قاعدة البيانات
-                var goal =  _context.SavingsGoals.FirstOrDefault(g => g.Id == goalId );
+                var goal = _context.SavingsGoals.FirstOrDefault(g => g.Id == goalId);
 
 
-                if (goal == null)  return NotFound(ApiResponse<bool>.FailureResponse("the Goal is not Found", ResultCode.NotFound));
+                if (goal == null) return NotFound(ApiResponse<bool>.FailureResponse("the Goal is not Found", ResultCode.NotFound));
 
                 // 2. تحديث المبلغ الحالي في الهدف
                 goal.CurrentAmount += amount;
@@ -85,15 +86,38 @@ namespace Promising_Generation_Bank_API.Controllers
 
                 // تأكيد العملية (Commit)
                 await transaction.CommitAsync();
-                return Ok(ApiResponse<bool>.SuccessResponse( true , $"The {amount} is added ", ResultCode.Success)); ;
+                return Ok(ApiResponse<bool>.SuccessResponse(true, $"The {amount} is added ", ResultCode.Success)); ;
             }
-            catch (Exception e )
+            catch (Exception e)
             {
                 // في حال حدوث أي خطأ، يتم التراجع عن كل التغييرات
                 await transaction.RollbackAsync();
-                return NotFound(ApiResponse<bool>.FailureResponse( e.Message, ResultCode.NotFound)); ;
+                return NotFound(ApiResponse<bool>.FailureResponse(e.Message, ResultCode.NotFound)); ;
             }
         }
 
+        [HttpGet("GetSavingJourneys")]
+        public async Task<IActionResult> GetSavingJourneys(int parentId)
+        {
+            var query = (from st in _context.SavingsTransactions
+                         join s in _context.SavingsGoals on st.SavingsGoalId equals s.Id
+                         join c in _context.Children on s.ChildId equals c.Id
+                         join p in _context.Parents on c.ParentId equals parentId
+                         select new
+                         {
+                             goalName = s.Name,
+                             ChildName = c.Name,
+                             Amount = st.Amount
+                         }).Distinct();
+
+            var result = await query.ToListAsync();
+
+            if (result.Count == 0)
+            {
+                return Ok(ApiResponse<IEnumerable<object>>.FailureResponse("No Saving Journeys found for the specified child.", ResultCode.NotFound));
+            }
+
+            return Ok(ApiResponse<IEnumerable<object>>.SuccessResponse(result, "Get all Saving Journeys", ResultCode.Success));
+        }
     }
 }
