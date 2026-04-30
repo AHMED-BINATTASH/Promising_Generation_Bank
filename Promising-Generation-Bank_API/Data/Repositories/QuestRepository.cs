@@ -27,6 +27,13 @@ namespace Promising_Generation_Bank_API.Data.Repositories
                 .Where(q => q.ChildId == childId && q.Status != QuestStatus.Approved)
                 .ToListAsync();
         }
+        public async Task<IEnumerable<Quest>> GetChildQuestsById(int childId)
+        {
+            // نعرض للطفل المهام التي حالتها ليست "Approved" (أي Pending أو Completed)
+            return await _context.Quests
+                .Where(q => q.ChildId == childId)
+                .ToListAsync();
+        }
         public async Task<Quest> AddAsync(Quest quest)
         {
             _context.Quests.Add(quest);

@@ -38,6 +38,12 @@ namespace Promising_Generation_Bank_API.Controllers
             var quests = await _questRepo.GetActiveQuestsForChildAsync(childId);
             return Ok(ApiResponse<IEnumerable<Quest>>.SuccessResponse(quests, "Available quests for child retrieved", ResultCode.Success));
         }
+        [HttpGet("GetChildQuestsById")]
+        public async Task<IActionResult> GetChildQuestsById(int childId)
+        {
+            var quests = await _questRepo.GetChildQuestsById(childId);
+            return Ok(ApiResponse<IEnumerable<Quest>>.SuccessResponse(quests, "Available quests for child retrieved", ResultCode.Success));
+        }
 
         [HttpPost("Add")]
         public async Task<IActionResult> AddQuest([FromBody] Quest quest)
