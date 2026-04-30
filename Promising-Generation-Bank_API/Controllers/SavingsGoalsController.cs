@@ -103,12 +103,13 @@ namespace Promising_Generation_Bank_API.Controllers
                          join s in _context.SavingsGoals on st.SavingsGoalId equals s.Id
                          join c in _context.Children on s.ChildId equals c.Id
                          join p in _context.Parents on c.ParentId equals parentId
+                         group new { st, s, c } by st.Id into g
                          select new
                          {
-                             goalName = s.Name,
-                             ChildName = c.Name,
-                             Amount = st.Amount
-                         }).Distinct();
+                             goalName = g.FirstOrDefault().s.Name,
+                             ChildName = g.FirstOrDefault().c.Name,
+                             Amount = g.FirstOrDefault().st.Amount
+                         });
 
             var result = await query.ToListAsync();
 
