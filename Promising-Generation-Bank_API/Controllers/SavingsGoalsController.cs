@@ -43,7 +43,43 @@ namespace Promising_Generation_Bank_API.Controllers
         //    return Ok(ApiResponse<SavingsGoal>.SuccessResponse(goal, "Money added to your goal! Watch your piggy bank grow!", ResultCode.Success));
         //}
 
+        [HttpDelete("{id}")] // يفضل تمرير المعرف في المسار URL
+        public async Task<IActionResult> DeleteGoal(int id)
+        {
+            // جلب الهدف مع بيانات الطفل المرتبطة به لضمان عدم وجود Null في Goal.Child
+            var goal = await _context.SavingsGoals
+                .Include(g => g.Child)
+                .FirstOrDefaultAsync(g => g.Id == id);
 
+            if (goal == null)
+            {
+                return NotFound(ApiResponse<bool>.FailureResponse("Goal not found", ResultCode.NotFound));
+            }
+
+            if (goal.Child == null)
+            {
+                return BadRequest(ApiResponse<bool>.FailureResponse("Associated child account not found", ResultCode.BadRequest));
+            }
+
+            try
+            {
+                // 1. إعادة المبلغ إلى رصيد الطفل
+                goal.Child.SavingsBalance += goal.CurrentAmount;
+
+                // 2. حذف الهدف
+                _context.SavingsGoals.Remove(goal);
+
+                // 3. حفظ التغييرات (سيتم تحديث الرصيد وحذف الهدف في عملية واحدة)
+                await _context.SaveChangesAsync();
+
+                return Ok(ApiResponse<bool>.SuccessResponse(true, "Goal deleted successfully and funds returned to balance", ResultCode.Success));
+            }
+            catch (Exception ex)
+            {
+                // التعامل مع أي خطأ غير متوقع أثناء الحفظ
+                return StatusCode(500, ApiResponse<bool>.FailureResponse($"An error occurred: {ex.Message}", ResultCode.InternalError));
+            }
+        }
 
         [HttpGet("GetCompletedGoals")]
         public async Task<IActionResult> GetCompletedGoals(int id)
