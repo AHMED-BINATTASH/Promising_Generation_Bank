@@ -56,7 +56,7 @@ namespace Promising_Generation_Bank_API.Controllers
 
 
         [HttpGet("AddSavingsDeposit")]
-        public async Task<IActionResult> AddSavingsDepositAsync(int goalId, decimal amount)
+        public async Task<IActionResult> AddSavingsDepositAsync(int goalId, decimal amount, int? childId) // إضافة childId كـ parameter
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
 
@@ -65,8 +65,8 @@ namespace Promising_Generation_Bank_API.Controllers
                 // 1. جلب الهدف من قاعدة البيانات
                 var goal = _context.SavingsGoals.FirstOrDefault(g => g.Id == goalId);
 
-
-                if (goal == null) return NotFound(ApiResponse<bool>.FailureResponse("the Goal is not Found", ResultCode.NotFound));
+                if (goal == null)
+                    return NotFound(ApiResponse<bool>.FailureResponse("The Goal is not Found", ResultCode.NotFound));
 
                 // 2. تحديث المبلغ الحالي في الهدف
                 goal.CurrentAmount += amount;
@@ -77,22 +77,30 @@ namespace Promising_Generation_Bank_API.Controllers
                     goal.IsCompleted = true;
                 }
 
-                // 3. إنشاء سجل العملية الجديد
-                var savingsLog = new SavingsTransaction(goalId, amount);
+                // 3. إذا كان هناك ChildId، يمكن إضافته للسجل
+                if (childId.HasValue)
+                {
+                    // هنا تستطيع استخدام childId إذا كان له علاقة بالـ transaction أو الهدف
+                    // على سبيل المثال يمكن إضافة childId إلى سجل المعاملات أو الهدف، إذا كان ذلك مناسبًا
+                    // يمكنك إضافة العملية أو أي تغييرات أخرى تحتاجها بناءً على هذه الخاصية
+                }
 
-                // 4. الحفظ في قاعدة البيانات
+                // 4. إنشاء سجل العملية الجديد
+                var savingsLog = new SavingsTransaction(goalId, amount, childId); // تمرير childId في السجل الجديد
+
+                // 5. الحفظ في قاعدة البيانات
                 _context.SavingsTransactions.Add(savingsLog);
                 await _context.SaveChangesAsync();
 
                 // تأكيد العملية (Commit)
                 await transaction.CommitAsync();
-                return Ok(ApiResponse<bool>.SuccessResponse(true, $"The {amount} is added ", ResultCode.Success)); ;
+                return Ok(ApiResponse<bool>.SuccessResponse(true, $"The {amount} is added", ResultCode.Success));
             }
             catch (Exception e)
             {
                 // في حال حدوث أي خطأ، يتم التراجع عن كل التغييرات
                 await transaction.RollbackAsync();
-                return NotFound(ApiResponse<bool>.FailureResponse(e.Message, ResultCode.NotFound)); ;
+                return NotFound(ApiResponse<bool>.FailureResponse(e.Message, ResultCode.NotFound));
             }
         }
 

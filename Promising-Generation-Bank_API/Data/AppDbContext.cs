@@ -138,6 +138,9 @@ namespace Promising_Generation_Bank_API.Data
                     .IsRequired()
                     .HasDefaultValueSql("GETDATE()");
 
+                entity.Property(t => t.ChildId)
+                    .IsRequired(false).HasDefaultValue(null);
+
                 entity.Property(t => t.Notes)
                     .HasMaxLength(500);
 
